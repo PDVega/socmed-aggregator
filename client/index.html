@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Twitter API</title>
+
+    <!-- Bootstrap -->
+    <link href="https://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container">
+      <h1>Twitter API <small>by Vega</small></h1>
+      <div class="jumbotron">
+        <h1>Welcome to Twitter Dev Application</h1>
+        <h4>This application using axios</h4>
+      </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">Twitter Timeline</div>
+        <div class="panel-body">
+          <button class="btn btn-primary" onclick="performGetTimeline()">Get Timeline</button>
+          <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+          <div class="panel-body" id="getTimeline"></div>
+        </div>
+      </div>
+      
+      <div class="panel panel-primary">
+        <div class="panel-heading">Search something on Twitter</div>
+        <div class="panel-body">
+          <input type="" class="form-control" id="searchId" placeholder="Search something"><br>
+          <button class="btn btn-primary" onclick="performGetSearch()">Get Timeline</button>
+          <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+          <div class="panel-body" id="getSearch"></div>
+        </div>
+      </div>
+      
+      <div class="panel panel-primary">
+        <div class="panel-heading">Posting Something on Twitter</div>
+        <div class="panel-body">
+          <form class="form-inline" id="postingInputForm">
+            <div class="form-group">
+              <input type="text" class="form-control" id="posting" placeholder="Posting Something">
+            </div>
+            <button type="submit" class="btn btn-primary">Post</button>
+          </form><br>
+          <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+          
+          <div class="panel-body" id="postResult"></div>
+        </div>
+      </div>
+    
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      axios.get('http://localhost:3000/api/timeline')
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    </script>
+  </body>
+</html>
