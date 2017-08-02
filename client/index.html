@@ -88,10 +88,10 @@
           key: $search.val()
         }
       })
-      .then(data => {
-        console.log(data);
+      .then(res => {
+        console.log(res);
         $('.search-timeline').empty();
-        let statuses = data.data.statuses;
+        let statuses = res.data.statuses;
         statuses.forEach(status => {
           $('.search-timeline').append(
             `<div class="panel panel-primary">
