@@ -29,19 +29,23 @@
       <div class="panel panel-primary">
         <div class="panel-heading">Search something on Twitter</div>
         <div class="panel-body">
-          <input type="" class="form-control search" placeholder="Search something"><br>
-          <button type="submit" class="btn btn-success search-btn">Search</button>
+          <form action="#" class="search">
+            <input type="search" class="form-control" id="search" placeholder="Search Something"><br>
+            <button type="submit" class="btn btn-success">Search</button>
+          </form>
+          <!-- <input type="" class="form-control search" placeholder="Search something"><br> -->
+          <!-- <button type="submit" class="btn btn-success search-btn">Search</button> -->
         </div>
       </div>
+      <div class="search-timeline" id=""></div>
+      
       
       <div class="panel panel-primary">
         <div class="panel-heading">Posting Something on Twitter</div>
         <div class="panel-body">
           <form class="form-inline" id="posting" action="#">
-            <div class="form-group">
-              <input type="text" id="submit-btn" class=" form-control tweet" rows="3" cols="178" placeholder="Posting Something to your twitter"><br><br>
-            </div>
-            <button type="submit" class="btn btn-primary submit-btn">Post</button>
+              <input type="text" id="submit-btn" class=" form-control tweet" rows="3" cols="178" placeholder="Posting Something"><br><br>
+            <button type="submit" class="btn btn-success submit-btn">Post</button>
           </form>
         </div>
       </div>
@@ -76,29 +80,32 @@
     </script>
     
     <script>
-      $('.search-btn').submit(function(eventHandler){
-        eventHandler.preventDefault()
-        axios.get('http://localhost:3000/api/timeline/search', {
-          params: {
-            key: $search.val()
-          }
-        })
-        .then(res => {
-          let data = res.data.statuses
-          data.forEach(d => {
-            console.log(d);
-            $('#timeline').append(
-              `<div class="panel panel-primary">
-                <div class="panel-heading">${d.user.name}</div>
-                <div class="panel-body">${d.text}</div>
-              </div>`
-              )
-          })
-        })
-        .catch(err => {
-          console.log(err);
+    let $search = $('#search');
+    $('form.search').submit(function(eventHandler){
+      eventHandler.preventDefault()
+      axios.get('http://localhost:3000/api/timeline/search', {
+        params: {
+          key: $search.val()
+        }
+      })
+      .then(data => {
+        console.log(data);
+        $('.search-timeline').empty();
+        let statuses = data.data.statuses;
+        statuses.forEach(status => {
+          $('.search-timeline').append(
+            `<div class="panel panel-primary">
+              <div class="panel-heading">${status.user.name} @${status.user.screen_name}</div>
+              <div class="panel-body">${status.text}</div>
+              <div class="panel-footer">${status.created_at}</div>
+            </div>`
+            )
         })
       })
+      .catch(err =>{
+        console.log(err);
+      })
+    })
     </script>
     
     <script>
